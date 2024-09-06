@@ -19,4 +19,20 @@ data "aws_iam_policy_document" "sns_policy_document" {
 resource "aws_sns_topic" "accout_activity_topic" {
   name              = var.name
   kms_master_key_id = var.kms_master_key_id
+
+  # The delivery policy settings are primarily focused on the handling of HTTP/S endpoints
+  delivery_policy = <<EOF
+  {
+    "http": {
+      "defaultHealthyRetryPolicy": {
+        "minDelayTarget": 20,
+        "maxDelayTarget": 50,
+        "numRetries": 10,
+        "numNoDelayRetries": 0,
+        "numMinDelayRetries": 2,
+        "numMaxDelayRetries": 5,
+        "backoffFunction": "exponential"
+      },
+    }
+  }
 }
