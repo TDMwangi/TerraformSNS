@@ -33,6 +33,14 @@ resource "aws_sns_topic" "accout_activity_topic" {
         "numMaxDelayRetries": 5,
         "backoffFunction": "exponential"
       },
+      "disableSubscriptionOverrides": false,
+      "defaultThrottlePolicy": {
+        "maxReceivesPerSecond": 1
+      },
+      "defaultRequestPolicy": {
+        "headerContentType": "text/plain; charset=UTF-8"
+      }
     }
   }
+  EOF
 }
