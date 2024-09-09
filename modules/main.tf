@@ -44,3 +44,8 @@ resource "aws_sns_topic" "accout_activity_topic" {
   }
   EOF
 }
+
+resource "aws_sns_topic_policy" "sns_topic_policy" {
+  arn    = resource.aws_sns_topic.accout_activity_topic.arn
+  policy = data.aws_iam_policy_document.sns_policy_document.json
+}
